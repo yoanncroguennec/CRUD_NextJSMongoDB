@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 // FUNCTIONS
-import CurrentDate from "@/app/utils/helpers/functions/CurrentDate";
+import CurrentDate from "../../../utils/helpers/functions/CurrentDate";
 // ICONS
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 // STYLES
