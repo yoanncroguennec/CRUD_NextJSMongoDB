@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 // BDD
-import connectMongoDB from "@/app/utils/db/mongoDB";
+import connectMongoDB from "../../../utils/db/models/mongoDB";
 // MODELS
-import Events from "@/app/utils/db/models/eventModel";
+import Events from "../../../utils/db/models/eventModel";
 
 export async function GET(request, { params }) {
   const { id } = params;
