@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 // FUNCTIONS
-import CurrentDate from "@/app/utils/helpers/functions/CurrentDate";
+// import CurrentDate from "@/app/utils/helpers/functions/CurrentDate";
 // ICONS
 import { MdOutlineAddCircleOutline } from "react-icons/md";
 // STYLES
-import { BoxDateCurrent, RootListEvents } from "./StylesAllEvents";
+import { BoxDateCurrent, RootListEvents } from "./StylesAllProducts";
 import Link from "next/link";
-import Event from "./event/Event";
 import { Custom_ModalLayout } from "../../layouts";
-import Modal_AddEvent from "./modal_AddEvent/Modal_AddEvent";
+import Product from "./product/Product";
+import Modal_AddProduct from "./modal_AddProduct/Modal_AddProduct";
 
-export default function AllEvents({ admin }) {
+export default function AllProducts({ admin }) {
   const [openModal_AddEvent, setOpenModal_AddEvent] = useState(false);
   const handleOpenModal_AddEvent = () => setOpenModal_AddEvent(true);
   const handleCloseModal_AddEvent = () => setOpenModal_AddEvent(false);
@@ -23,29 +23,29 @@ export default function AllEvents({ admin }) {
   const handleCloseModal_DeleteAllData = () =>
     setOpenModal_DeleteAllData(false);
 
-    const [allData, setAllData] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
 
-    useEffect(() => {
-      async function getAllData() {
-        try {
-          const res = await fetch("/api/events");
-          if (!res.ok) {
-            throw new Error("Error fetching events");
-          }
-
-          const { events } = await res.json();
-          setAllData(events);
-        } catch (error) {
-          console.log("Error fetching events");
+  useEffect(() => {
+    async function getAllProducts() {
+      try {
+        const res = await fetch("/api/products");
+        if (!res.ok) {
+          throw new Error("Error fetching products");
         }
-      }
-      getAllData();
-    }, []);
 
+        const { products } = await res.json();
+        setAllProducts(products);
+      } catch (error) {
+        console.log("Error fetching products");
+      }
+    }
+    getAllProducts();
+  }, []);
+  
   return (
     <RootListEvents>
       <BoxDateCurrent>
-        <CurrentDate />
+        {/* <CurrentDate /> */}
         {admin ? (
           <Box sx={{ display: "flex", flexWrap: "no-wrap" }}>
             <MdOutlineAddCircleOutline
@@ -57,17 +57,14 @@ export default function AllEvents({ admin }) {
             <Custom_ModalLayout
               open={openModal_AddEvent}
               setOpen={setOpenModal_AddEvent}
-              height='400px'
+              height='300px'
             >
-              <Modal_AddEvent
-                open={openModal_AddEvent}
-                setOpen={setOpenModal_AddEvent}
-              />
+              <Modal_AddProduct />
             </Custom_ModalLayout>
           </Box>
         ) : null}
       </BoxDateCurrent>
-      <Event allEvents={allData} admin={admin} />
+      <Product allProducts={allProducts} admin={admin} />
     </RootListEvents>
   );
 };

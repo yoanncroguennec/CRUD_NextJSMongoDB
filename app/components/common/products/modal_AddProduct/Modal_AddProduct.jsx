@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,10 +9,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { InputBox, LineUnderInput } from "./StylesModal_AddEvent.jsx";
+import { InputBox, LineUnderInput } from "./StylesModal_AddProduct.jsx";
 import InputEmoji from "react-input-emoji";
 
-export default function Modal_AddEvent({ open, setOpen }) {
+export default function Modal_AddProduct() {
   const [text, setText] = useState("");
 
   function handleOnEnter(text) {
@@ -31,56 +31,71 @@ export default function Modal_AddEvent({ open, setOpen }) {
 
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("../api/events", {
+      const res = await fetch("../api/products", {
         method: "POST",
         body: JSON.stringify(data, text),
       });
 
       if (!res.ok) {
-        throw new Error("Failed to add events");
+        throw new Error("Failed to add product");
       }
 
       const { message } = await res.json();
       alert(message);
-      setOpen(!open);
-      location.reload();
     } catch (error) {
-      console.log("Failed to add events", error);
-      alert("Failed to add events");
+      console.log("Failed to add product", error);
+      alert("Failed to add product");
     }
   };
 
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)} method='POST'>
-        {/* <InputEmoji
+        <InputEmoji
           value={text}
           onChange={setText}
           cleanOnEnter
           onEnter={handleOnEnter}
           placeholder='Type a message'
-        /> */}
+        />
+        <label htmlFor='title' className='form-label'>
+          Title
+        </label>
         <input
           className='form-control'
-          placeholder="Titre de l'événement"
           {...register("title", { required: true })} // Enregistre le changement de valeur // Cette méthode remplace le "onChange"
         />
 
+        {/* <label htmlFor='date' className='form-label'>
+          Date
+        </label> */}
         <input
           type='date'
           name='date'
           {...register("date", { required: true })}
         />
 
+        <label htmlFor='description' className='form-label'>
+          Description
+        </label>
         <textarea
           className='form-control'
-          placeholder="Description de l'événement"
-          {...register("desc", { required: true })}
+          {...register("description", { required: true })}
         />
 
+        <label htmlFor='price' className='form-label'>
+          Price
+        </label>
+        <input
+          className='form-control'
+          {...register("price", { required: true })}
+        />
         <Button type='submit' variant='contained'>
           Envoyez
         </Button>
+        <div className='mb-3 text-end'>
+          <input type='submit' className='btn btn-primary' />
+        </div>
       </form>
     </Box>
   );

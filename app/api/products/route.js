@@ -1,6 +1,8 @@
-import connectMongoDB from "@/app/utils/db/mongoDB";
-import Products from "@/app/utils/db/models/products";
 import { NextResponse } from "next/server";
+// BDD
+import connectMongoDB from "@/app/utils/db/mongoDB";
+// MODELS
+import Products from "@/app/utils/db/models/products";
 
 export async function GET() {
   await connectMongoDB();
@@ -9,9 +11,9 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  const { title, description, price, text } = await request.json();
+  const { title, description, price, date, text } = await request.json();
   await connectMongoDB();
-  await Products.create({ title, description, price, text });
+  await Products.create({ title, description, price, date, text });
   return NextResponse.json(
     { message: "Product created successfully" },
     { status: 200 }

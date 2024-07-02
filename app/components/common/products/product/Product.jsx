@@ -1,8 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import moment from "moment";
-import "moment/locale/fr";
 // ICONS
 import { PiPencilLineDuotone } from "react-icons/pi";
 import {
@@ -17,9 +15,9 @@ import {
   StylesBtnAction,
   Typo_Event_Completed,
   Typo_Event_Not_Completed,
-} from "./StylesEvent";
+} from "./StylesProduct";
 
-export default function Event({ allEvents, admin }) {
+export default function Product({ allProducts, admin }) {
   // Responsives
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -28,7 +26,7 @@ export default function Event({ allEvents, admin }) {
   const handlerDelete = async (id) => {
     if (confirm("Are you sure you want to delete")) {
       try {
-        const res = await fetch(`../api/events/${id}`, {
+        const res = await fetch(`../api/products/${id}`, {
           method: "DELETE",
         });
         if (!res.ok) {
@@ -45,12 +43,8 @@ export default function Event({ allEvents, admin }) {
 
   return (
     <>
-      {allEvents.map((individualEvent, i) => {
-        const { _id, title, desc, dateOfEvent } = individualEvent;
-
-            const dateOfEvent_formatedLocal = `${moment(dateOfEvent).format(
-              "dddd DD MMMM YYYY"
-            )}`;
+      {allProducts.map((individualEvent, i) => {
+        const { _id, title, description, price } = individualEvent;
 
         return (
           <RootEvent key={i}>
@@ -58,11 +52,10 @@ export default function Event({ allEvents, admin }) {
               <Typo_Event_Completed variant='h6'>{title}</Typo_Event_Completed>
               <>
                 <Typo_Event_Not_Completed variant={matches ? "body2" : "h6"}>
-                  {desc}
-                  {/* {desc.substring(0, 40).concat("...")} */}
+                  {description.substring(0, 40).concat("...")}
                 </Typo_Event_Not_Completed>
                 <Typography variant={matches ? "body2" : "h6"}>
-                  {dateOfEvent_formatedLocal}
+                  {/* {dateOfEvent_formatedLocal} */}
                 </Typography>
                 {/* <Typography variant="h6">Créé le : {createdAt} </Typography> */}
               </>
@@ -76,10 +69,10 @@ export default function Event({ allEvents, admin }) {
                 ></StylesBtnAction>
 
                 <StylesBtnAction onClick={() => handlerDelete(_id)}>
-                  <PiPencilLineDuotone color='#FFF' size={30} />
+                  <PiPencilLineDuotone color='#FFF' size={35} />
                 </StylesBtnAction>
                 <StylesBtnAction onClick={() => handlerDelete(_id)}>
-                  <MdOutlineDeleteForever color='#F00' size={30} />
+                  <MdOutlineDeleteForever color='#F00' size={35} />
                 </StylesBtnAction>
               </BoxBtnsActions>
             ) : (

@@ -2,22 +2,22 @@ import { NextResponse } from "next/server";
 // BDD
 import connectMongoDB from "@/app/utils/db/mongoDB";
 // MODELS
-import Products from "@/app/utils/db/models/products";
+import Events from "@/app/utils/db/models/eventModel";
 
 export async function GET(request, { params }) {
   const { id } = params;
   await connectMongoDB();
-  const product = await Products.findOne({ _id: id });
-  return NextResponse.json({ product }, { status: 200 });
+  const event = await Events.findOne({ _id: id });
+  return NextResponse.json({ event }, { status: 200 });
 }
 
 export async function POST(request, { params }) {
   const { id } = params;
   const { title, description, price } = await request.json();
   await connectMongoDB();
-  await Products.findByIdAndUpdate(id, { title, description, price });
+  await Events.findByIdAndUpdate(id, { title, description, price });
   return NextResponse.json(
-    { message: "Product updated successfully" },
+    { message: "Event updated successfully" },
     { status: 200 }
   );
 }
@@ -26,9 +26,9 @@ export async function DELETE(request, { params }) {
   const { id } = params;
   console.log("DELETE", id);
   await connectMongoDB();
-  await Products.findByIdAndDelete(id);
+  await Events.findByIdAndDelete(id);
   return NextResponse.json(
-    { message: "Product deleted successfully" },
+    { message: "Event deleted successfully" },
     { status: 200 }
   );
 }

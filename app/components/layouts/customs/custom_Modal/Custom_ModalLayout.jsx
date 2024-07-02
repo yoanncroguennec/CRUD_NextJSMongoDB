@@ -1,4 +1,4 @@
-import { Box, Modal } from "@mui/material";
+import { Backdrop, Box, Modal } from "@mui/material";
 // STYLES
 import { BoxModal, stylesIconClose } from "./StylesCustom_ModalLayout";
 // ICONS
@@ -13,7 +13,7 @@ export default function Custom_ModalLayout({
   return (
     <Modal open={open}>
       <BoxModal height={height}>
-        <Box>
+        <Box style={{ background: "", height: "10%", width: "100%" }}>
           <MdClose
             color='#F00'
             onClick={() => setOpen(!open)}
@@ -21,7 +21,7 @@ export default function Custom_ModalLayout({
             style={stylesIconClose}
           />
         </Box>
-        <Box sx={{ justifyContent: "space-between", height: "100%" }}>
+        <Box sx={{ justifyContent: "space-between", height: "80%" }}>
           {children}
         </Box>
       </BoxModal>
