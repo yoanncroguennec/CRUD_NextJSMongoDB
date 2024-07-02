@@ -8,8 +8,14 @@ import {
   useTheme,
 } from "@mui/material";
 import { InputBox, LineUnderInput } from "./StylesModal_AddEvent.jsx";
+import InputEmoji from "react-input-emoji";
 
 export default function Modal_AddEvent() {
+  const [text, setText] = useState("");
+
+   function handleOnEnter(text) {
+     console.log("enter", text);
+   }
   // Responsives
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
@@ -25,7 +31,7 @@ export default function Modal_AddEvent() {
     try {
       const res = await fetch("../api/products", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(data, text),
       });
 
       if (!res.ok) {
@@ -43,6 +49,13 @@ export default function Modal_AddEvent() {
   return (
     <Box>
       <form onSubmit={handleSubmit(onSubmit)} method='POST'>
+        <InputEmoji
+          value={text}
+          onChange={setText}
+          cleanOnEnter
+          onEnter={handleOnEnter}
+          placeholder='Type a message'
+        />
         <label htmlFor='title' className='form-label'>
           Title
         </label>

@@ -5,6 +5,7 @@ const productSchema = new Schema(
     title: String,
     description: String,
     price: Number,
+    text: String,
   },
   { timestamps: true }
 );
