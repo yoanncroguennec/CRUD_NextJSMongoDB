@@ -47,7 +47,7 @@ export default function Event({ allEvents, admin }) {
         const { _id, title, description, price } = individualEvent;
 
         return (
-          <RootEvent>
+          <RootEvent key={i}>
             <Box>
               <Typo_Event_Completed variant='h6'>{title}</Typo_Event_Completed>
               <>
