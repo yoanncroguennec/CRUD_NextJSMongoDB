@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 // BDD
-import connectMongoDB from "../../utils/db/models/mongoDB";
+import connectMongoDB from "../../utils/db/mongoDB";
 // MODELS
 import Events from "../../utils/db/models/eventModel";
 
